@@ -182,7 +182,7 @@ class AccountPayment(models.Model):
         for rec in self.filtered('l10n_latam_checkbook_id'):
             sequence = rec.l10n_latam_checkbook_id.sequence_id
             sequence.sudo().write({'number_next_actual': int(rec.check_number) + 1})
-            rec.write({'is_move_sent': True})
+            # rec.write({'is_move_sent': True})
         return res
 
     @api.onchange('payment_method_line_id', 'is_internal_transfer', 'journal_id', 'destination_journal_id')
