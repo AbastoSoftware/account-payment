@@ -134,7 +134,7 @@ class AccountPayment(models.Model):
                         "Other checks were found with same number, issuer and bank. Please double check you are not "
                         "encoding the same check more than once<br/>"
                         "List of other payments/checks: %s") % (",".join(same_checks.mapped('display_name')))
-            elif rec.l10n_latam_checkbook_id.range_to and rec.check_number.isdecimal() and int(rec.check_number) > rec.l10n_latam_checkbook_id.range_to:
+            elif rec.l10n_latam_checkbook_id.range_to and rec.check_number and rec.check_number.isdecimal() and int(rec.check_number) > rec.l10n_latam_checkbook_id.range_to:
                 rec.l10n_latam_check_warning_msg = _(
                         "The <strong>check number %s is bigger</strong> than max number for this checkbook.<br/>"
                         "Please check you're using the right check number and the right checkbook") % (rec.check_number)
