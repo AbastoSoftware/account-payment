@@ -293,10 +293,12 @@ result = withholdable_base_amount * 0.10
                 self.withholding_python_compute, localdict,
                 mode="exec", nocopy=True)
             period_withholding_amount = localdict['result']
+            alicuot = withholdable_base_amount / period_withholding_amount * 100
         else:
             rule = self._get_rule(payment_group)
             percentage = 0.0
             fix_amount = 0.0
+            alicuot = 0.0
             if rule:
                 percentage = rule.percentage
                 fix_amount = rule.fix_amount
@@ -304,7 +306,7 @@ result = withholdable_base_amount * 0.10
                     withholdable_base_amount,
                     percentage,
                     fix_amount)
-
+                alicuot = percentage * 100
             period_withholding_amount = (
                 (total_amount > withholding_non_taxable_minimum) and (
                     withholdable_base_amount * percentage + fix_amount) or 0.0)
@@ -324,4 +326,5 @@ result = withholdable_base_amount * 0.10
             'tax_withholding_id': self.id,
             'automatic': True,
             'comment': comment,
+            'withholding_alicuot_amount': alicuot,
         }

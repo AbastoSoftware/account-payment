@@ -62,6 +62,8 @@ class AccountPayment(models.Model):
         readonly=True,
     )
 
+    withholding_alicuot_amount = fields.Float(string='Alicuota retencion')
+
     def _get_counterpart_move_line_vals(self, invoice=False):
         vals = super(AccountPayment, self)._get_counterpart_move_line_vals(
             invoice=invoice)
